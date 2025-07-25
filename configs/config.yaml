@@ -1,0 +1,52 @@
+# Training configuration
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 100
+  early_stopping_patience: 10
+  optimizer: adam
+  loss: mse
+
+# Model configurations
+models:
+  lstm:
+    hidden_dim: 64
+    num_layers: 2
+    dropout: 0.1
+    
+  tgcn:
+    hidden_dim: 64
+    K: 3  # Chebyshev polynomial order
+    
+  stgcn:
+    num_temporal_layers: 2
+    num_spatial_layers: 2
+    hidden_dim: 64
+    
+  graphwavenet:
+    adaptive_adj: true
+    hidden_dim: 32
+    num_layers: 8
+    
+  staeformer:
+    d_model: 64
+    num_heads: 8
+    num_layers: 3
+    
+  cdsreformer:
+    d_model: 64
+    num_heads: 8
+    num_layers: 3
+    
+  dcrnn:
+    hidden_dim: 64
+    num_layers: 2
+    max_diffusion_step: 2
+
+# Data configuration
+data:
+  sequence_length: 12  # 1 hour history (12 * 5 minutes)
+  horizons: [3, 12]  # 15 min and 60 min
+  train_ratio: 0.7
+  val_ratio: 0.1
+  test_ratio: 0.2
