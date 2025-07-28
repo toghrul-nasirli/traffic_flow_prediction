@@ -50,7 +50,7 @@ def debug_data_dimensions(data_path):
 def main():
     # Configuration
     data_path = 'data/raw/PEMS_Data.csv'
-    models_to_train = ['LSTM', 'GraphWaveNet', 'T-GCN', 'ST-GCN', 'DCRNN', 'STAEformer', 'CDSReFormer']
+    models_to_train = ['LSTM', 'T-GCN', 'ST-GCN', 'DCRNN', 'GraphWaveNet', 'STAEformer', 'CDSReFormer']
     horizons_minutes = [15, 60]  # in minutes
     
     # Create directories
