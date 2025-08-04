@@ -46,7 +46,7 @@ models:
 # Data configuration
 data:
   sequence_length: 12  # 1 hour history (12 * 5 minutes)
-  horizons: [3, 12]  # 15 min and 60 min
+  horizons: [3, 6, 12, 18, 24]  # 15 min, 30 min, 60 min, 90 min, and 120 min
   train_ratio: 0.7
   val_ratio: 0.1
   test_ratio: 0.2

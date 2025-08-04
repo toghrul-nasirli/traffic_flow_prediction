@@ -5,7 +5,7 @@ import os
 
 def plot_metrics(results_csv: str = 'results/model_comparison.csv', save_dir: str = None):
     """
-    Generate bar charts for MAE, RMSE, and MAPE across models and prediction horizons.
+    Generate bar charts for MAE, RMSE, and SMAPE across models and prediction horizons.
 
     Args:
         results_csv (str): Path to the CSV file with evaluation results.
@@ -13,7 +13,7 @@ def plot_metrics(results_csv: str = 'results/model_comparison.csv', save_dir: st
     """
     df = pd.read_csv(results_csv)
     horizons = df['Horizon'].unique()
-    metrics = ['MAE', 'RMSE', 'MAPE']
+    metrics = ['MAE', 'RMSE', 'SMAPE']
 
     for horizon in horizons:
         subset = df[df['Horizon'] == horizon]

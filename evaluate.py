@@ -17,7 +17,7 @@ def main():
         config = yaml.safe_load(f)
 
     data_cfg = config['data']
-    horizons = data_cfg.get('horizons', [])
+    horizons = data_cfg.get('horizons', [3, 6, 12, 18, 24])  # Default to all horizons
     batch_size = config['training']['batch_size']
 
     # Prepare data loaders
@@ -31,7 +31,7 @@ def main():
 
     # Evaluate each saved model
     results = []
-    model_list = ['LSTM', 'T-GCN', 'ST-GCN', 'GraphWaveNet', 'STAEformer', 'CDSReFormer', 'DCRNN']
+    model_list = ['LSTM', 'T-GCN', 'ST-GCN', 'DCRNN', 'GraphWaveNet', 'STAEformer', 'CDSReFormer']
 
     for model_name in model_list:
         for horizon in horizons:
@@ -60,10 +60,10 @@ def main():
                 'Horizon': f'{horizon_minutes} min',
                 'MAE': metrics['MAE'],
                 'RMSE': metrics['RMSE'],
-                'MAPE': metrics['MAPE']
+                'SMAPE': metrics['SMAPE']
             })
             print(f'{model_name} ({horizon_minutes} min) → MAE: {metrics["MAE"]:.4f}, '
-                  f'RMSE: {metrics["RMSE"]:.4f}, MAPE: {metrics["MAPE"]:.2f}%')
+                  f'RMSE: {metrics["RMSE"]:.4f}, SMAPE: {metrics["SMAPE"]:.2f}%')
 
     # Save evaluation summary
     eval_df = pd.DataFrame(results)

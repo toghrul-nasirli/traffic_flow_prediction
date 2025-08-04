@@ -146,7 +146,7 @@ class Trainer:
                     continue
                 
         if len(all_preds) == 0:
-            return {'MAE': float('inf'), 'RMSE': float('inf'), 'MAPE': float('inf')}
+            return {'MAE': float('inf'), 'RMSE': float('inf'), 'SMAPE': float('inf')}
             
         all_preds = np.concatenate(all_preds, axis=0)
         all_true = np.concatenate(all_true, axis=0)
@@ -270,7 +270,7 @@ class Trainer:
                     'optimizer_state_dict': optimizer.state_dict(),
                     'val_mae': val_metrics['MAE'],
                     'val_rmse': val_metrics['RMSE'],
-                    'val_mape': val_metrics['MAPE'],
+                    'val_smape': val_metrics['SMAPE'],
                     'config': self.config
                 }, checkpoint_path)
                 print(f"  → New best model saved! Val MAE: {val_metrics['MAE']:.4f}")
@@ -287,7 +287,7 @@ class Trainer:
                 print(f"Epoch {epoch:3d}: Train Loss = {train_loss:.4f}, "
                       f"Val MAE = {val_metrics['MAE']:.4f}, "
                       f"Val RMSE = {val_metrics['RMSE']:.4f}, "
-                      f"Val MAPE = {val_metrics['MAPE']:.2f}%, "
+                      f"Val SMAPE = {val_metrics['SMAPE']:.2f}%, "
                       f"LR = {new_lr:.6f}")
         
         # Load best model and evaluate on test set
@@ -306,6 +306,6 @@ class Trainer:
         print(f"\nFinal Test Results for {model_name} - {horizon_key}:")
         print(f"  MAE:  {test_metrics['MAE']:.4f}")
         print(f"  RMSE: {test_metrics['RMSE']:.4f}")
-        print(f"  MAPE: {test_metrics['MAPE']:.2f}%")
+        print(f"  SMAPE: {test_metrics['SMAPE']:.2f}%")
         
         return test_metrics

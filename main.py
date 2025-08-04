@@ -51,7 +51,7 @@ def main():
     # Configuration
     data_path = 'data/raw/PEMS_Data.csv'
     models_to_train = ['LSTM', 'T-GCN', 'ST-GCN', 'DCRNN', 'GraphWaveNet', 'STAEformer', 'CDSReFormer']
-    horizons_minutes = [15, 60]  # in minutes
+    horizons_minutes = [15, 30, 60, 90, 120]  # in minutes (3, 6, 12, 18, 24 steps)
     
     # Create directories
     os.makedirs('data/raw', exist_ok=True)
@@ -69,7 +69,7 @@ def main():
     actual_nodes, adj_nodes = debug_data_dimensions(data_path)
     
     # Assuming 5-minute intervals in the data
-    horizons_steps = [h // 5 for h in horizons_minutes]  # [3, 12] steps
+    horizons_steps = [h // 5 for h in horizons_minutes]  # [3, 6, 12, 18, 24] steps
     
     # Prepare data
     preprocessor = DataPreprocessor(data_path)
@@ -127,13 +127,13 @@ def main():
                     'Horizon': f'{horizon_minutes} min',
                     'MAE': metrics['MAE'],
                     'RMSE': metrics['RMSE'],
-                    'MAPE': metrics['MAPE']
+                    'SMAPE': metrics['SMAPE']
                 })
                 
                 print(f"\n{model_name} - {horizon_minutes} min horizon:")
                 print(f"MAE: {metrics['MAE']:.4f}")
                 print(f"RMSE: {metrics['RMSE']:.4f}")
-                print(f"MAPE: {metrics['MAPE']:.2f}%")
+                print(f"SMAPE: {metrics['SMAPE']:.2f}%")
                 
             except Exception as e:
                 print(Fore.RED + f"Error training {model_name}: {str(e)}" + Style.RESET_ALL)

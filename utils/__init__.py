@@ -1,10 +1,10 @@
 from .preprocessing import DataPreprocessor
-from .metrics import calculate_metrics, mae, rmse, mape
+from .metrics import calculate_metrics, mae, rmse, smape
 
 __all__ = [
     'DataPreprocessor',
     'calculate_metrics',
     'mae',
     'rmse',
-    'mape'
+    'smape'
 ]
